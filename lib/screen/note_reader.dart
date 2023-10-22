@@ -44,58 +44,22 @@ class _NoteReaderScreenState extends State<NoteReaderScreen> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              // Spacer()
-              
-            ],
-            
-          ),
-          
-        ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              FloatingActionButton.extended(
-                onPressed: () async {
-                  await FirebaseFirestore.instance
-                      .collection('Notes')
-                      .doc(widget.doc.id)
-                      .delete();
-                      setState(() {
-                        
-                      });
-                },
-                backgroundColor: Colors.redAccent,
-                label: const Text('Delete'),
-                icon: const Icon(Icons.delete),
-              ),
-              FloatingActionButton.extended(
-              onPressed: () async {
-                await FirebaseFirestore.instance
-                    .collection('Notes')
-                    .doc(widget.doc.id)
-                    .update(
-                      {
-                        'Note title': widget.doc['Note title'],
-                        'note content': widget.doc['note content'],
-                        // 'creation date': widget.doc['creation date'],
-                        // 'color_id': widget.doc['color_id'],
-                      },
-                    );
-                    setState(() {
-                      
-                    });
-              },
-              backgroundColor: Colors.greenAccent,
-              label: const Text('update'),
-              icon: const Icon(Icons.update),
-            )
             ],
           ),
         ),
-        
-    );
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+             await FirebaseFirestore.instance
+                .collection('Notes')
+                .doc(widget.doc.id)
+                .delete();
+                setState(() {
+                  
+                });
+                Navigator.pop(context);
+          },
+          label: const Text('Delete'),
+          icon: const Icon(Icons.delete),
+        ));
   }
 }
